@@ -30,7 +30,7 @@ const drumKeys = [
   {
     key:"D",
     id: 'Open-HH',
-    rl: 'https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3'
+    url: 'https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3'
   },
   {
     key:"Z",
@@ -52,8 +52,18 @@ class App extends React.Component {
   constructor(props){
     super(props);
   }
+
+  playAudio(url){
+    // let audio = drumKeys.find(x => x.key === str).url;
+    let drumSound = new Audio(url)
+    // drumSound.currentTime=0;
+    drumSound.play();
+  }
+
+  
   render (){
-    let keys = drumKeys.map((e,i) => <div className = "drum-pad" key = {i}>{e.key}</div>);
+    
+    let keys = drumKeys.map((e,i) => <button id={e.id}  className="drum-pad" onClick = {()=>this.playAudio(e.url)} key = {i}>{e.key}</button>);
     return(
       <div id = "drum-machine">
         <div id = "keysWrapper">
