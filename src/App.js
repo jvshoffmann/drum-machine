@@ -51,25 +51,31 @@ const drumKeys = [
 class App extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+      lastAudio: ""
+    }
   }
 
-  playAudio(url){
-    // let audio = drumKeys.find(x => x.key === str).url;
-    let drumSound = new Audio(url)
-    // drumSound.currentTime=0;
+  playAudio(audioId, lastAudio){
+    let drumSound = document.getElementById(audioId)
+    this.setState({lastAudio:lastAudio})
     drumSound.play();
   }
 
   
   render (){
     
-    let keys = drumKeys.map((e,i) => <button id={e.id}  className="drum-pad" onClick = {()=>this.playAudio(e.url)} key = {i}>{e.key}</button>);
+    let keys = drumKeys.map((e,i) => 
+        <button id={e.id}  className="drum-pad" onClick = {()=>this.playAudio(e.key, e.id)} key = {i}>{e.key}
+        <audio src={e.url} className="clip" id = {e.key}/></button>
+     );
     return(
       <div id = "drum-machine">
         <div id = "keysWrapper">
-        {keys}
+          
+          {keys}
         </div>
-        <div id = "display">display placeholder</div>
+        <div id = "display">{this.state.lastAudio}</div>
       </div>
     )
   };
